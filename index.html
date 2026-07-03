@@ -156,11 +156,11 @@
 
     .sidebar-divider { height: 1px; background: var(--border); }
 
-    /* ── MAIN (Pleine largeur) ──────────────────────────────────── */
+    /* ── MAIN ──────────────────────────────────── */
     .main { 
       flex: 1; 
+      min-width: 0; 
       padding: 3rem 4rem; 
-      width: 100%; 
     }
 
     .section { margin-bottom: 4rem; }
@@ -176,7 +176,7 @@
       font-weight: 800; font-size: 1.5rem; letter-spacing: -0.01em;
     }
 
-    /* Timeline (pour formation et expérience) */
+    /* Timeline */
     .timeline { display: flex; flex-direction: column; position: relative; }
     .timeline::before {
       content: '';
@@ -204,12 +204,29 @@
     .tl-sub { font-style: italic; font-size: 0.72rem; color: var(--muted); margin-bottom: 0.5rem; }
     .tl-desc { font-size: 0.75rem; color: var(--muted); line-height: 1.75; }
 
-    /* Grid pour les Projets */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1.8rem;
+    /* ── SLIDER PROJETS ──────────────────────────────────── */
+    .projects-carousel-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
     }
+    
+    .projects-carousel {
+      display: flex;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+      gap: 1.8rem;
+      padding: 1rem 0; 
+      scrollbar-width: none; 
+      width: 100%;
+    }
+    
+    .projects-carousel::-webkit-scrollbar {
+      display: none; 
+    }
+
     .proj-card {
       background: var(--card);
       border: 1px solid var(--border);
@@ -219,13 +236,21 @@
       flex-direction: column;
       transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
       opacity: 0; transform: translateY(20px);
+      
+      /* Propriétés du slider */
+      flex: 0 0 340px; 
+      max-width: 100%;
+      scroll-snap-align: start;
     }
+    
     .proj-card.visible { opacity: 1; transform: none; }
+    
     .proj-card:hover {
       transform: translateY(-5px);
       border-color: var(--accent);
       box-shadow: 0 8px 24px rgba(0, 210, 190, 0.08);
     }
+    
     .proj-date { font-size: 0.7rem; color: var(--purple); margin-bottom: 0.6rem; letter-spacing: 0.05em; text-transform: uppercase; }
     .proj-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.2rem; margin-bottom: 0.4rem; color: var(--text); }
     .proj-sub { font-size: 0.75rem; color: var(--accent2); margin-bottom: 1rem; }
@@ -238,6 +263,34 @@
       color: var(--accent2); border-radius: 4px;
       background: rgba(79,140,255,0.05);
     }
+
+    /* Boutons du slider */
+    .slider-btn {
+      background: var(--card);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      z-index: 10;
+      transition: all 0.2s;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    }
+    
+    .slider-btn:hover {
+      background: var(--accent);
+      color: var(--bg);
+      transform: scale(1.1);
+    }
+    
+    .prev-btn { left: -22px; }
+    .next-btn { right: -22px; }
 
     /* Skills */
     .skills-section-grid {
@@ -294,13 +347,13 @@
     .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .reveal.visible { opacity: 1; transform: none; }
 
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
-
     @media (max-width: 768px) {
       body { flex-direction: column; }
       .sidebar { width: 100%; min-width: unset; height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--border); }
-      .main { padding: 2rem 1.2rem; width: 100%; }
+      .main { padding: 2rem 1.2rem; min-width: 0; }
+      .proj-card { flex: 0 0 85%; }
+      .prev-btn { left: -10px; }
+      .next-btn { right: -10px; }
     }
   </style>
 </head>
@@ -421,9 +474,9 @@
           <div class="tl-date">Avril – Juin 2026</div>
           <div class="tl-title">Stage Informatique – Administration Systèmes & Réseaux</div>
           <div class="tl-sub">Conseil Départemental de l'Aveyron / GRETA Rodez (12)</div>
-          <div class="tl-desc">Préparation matérielle et logicielle des postes. Configuration d'équipements réseaux (VLANs, pare-feu pfSense). Duplication de serveurs, déploiement d'images via FOG Project et AOMEI, dépannage matériel avancé (flashage BIOS InsydeH2O).</div>
+          <div class="tl-desc">Préparation matérielle et logicielle des postes. Configuration d'équipements réseaux (VLANs, pare-feu pfSense). Duplication de serveurs, déploiement d'images via FOG Project et AOMEI, dépannage matériel avancé.</div>
           <div class="tl-tags" style="margin-top: 0.7rem;">
-            <span class="tl-tag">pfSense</span><span class="tl-tag">VLAN</span><span class="tl-tag">FOG Project</span><span class="tl-tag">AOMEI</span><span class="tl-tag">BIOS</span>
+            <span class="tl-tag">pfSense</span><span class="tl-tag">VLAN</span><span class="tl-tag">FOG Project</span><span class="tl-tag">AOMEI</span>
           </div>
         </div>
       </div>
@@ -444,36 +497,55 @@
       <span class="section-heading-icon">🚀</span>
       <h2>Projets Académiques</h2>
     </div>
-    <div class="projects-grid">
-      <div class="proj-card reveal">
-        <div class="proj-date">Mai 2025</div>
-        <div class="proj-title">Ordonnancement de tâches</div>
-        <div class="proj-sub">Application Java avec Interface Graphique</div>
-        <div class="proj-desc">Création d'une application pour charger, afficher et modifier un fichier CSV d'événements. Implémentation d'algorithmes de filtrage, tri et sauvegarde. Coordination d'équipe et gestion via GitHub.</div>
-        <div class="proj-tags">
-          <span class="proj-tag">Java</span><span class="proj-tag">JavaFX</span><span class="proj-tag">JUnit</span><span class="proj-tag">GitHub</span><span class="proj-tag">Eclipse</span>
+    
+    <div class="projects-carousel-wrapper">
+      <button class="slider-btn prev-btn">❮</button>
+      
+      <div class="projects-carousel">
+        
+        <div class="proj-card reveal">
+          <div class="proj-date">Avril – Juin 2026</div>
+          <div class="proj-title">Administration Systèmes & Réseaux</div>
+          <div class="proj-sub">Infrastructure, Maintenance et Support</div>
+          <div class="proj-desc">Gérer, configurer et dépanner des infrastructures réseaux et des serveurs. Configuration d'équipements (VLANs, pare-feu pfSense), déploiement via FOG Project et AOMEI. Dépannage matériel avancé au GRETA (extraction et flashage de firmware BIOS InsydeH2O).</div>
+          <div class="proj-tags">
+            <span class="proj-tag">pfSense</span><span class="proj-tag">VLAN</span><span class="proj-tag">FOG Project</span><span class="proj-tag">AOMEI</span><span class="proj-tag">BIOS</span>
+          </div>
         </div>
-      </div>
 
-      <div class="proj-card reveal">
-        <div class="proj-date">Mars 2026</div>
-        <div class="proj-title">Dolistats</div>
-        <div class="proj-sub">Extension pour l'ERP Dolibarr</div>
-        <div class="proj-desc">Application web permettant de consulter des données depuis l'ERP Dolibarr. Architecture MVC en PHP, interrogation via API REST sans base locale, graphiques dynamiques, déploiement sur hébergeur.</div>
-        <div class="proj-tags">
-          <span class="proj-tag">PHP</span><span class="proj-tag">MVC</span><span class="proj-tag">REST API</span><span class="proj-tag">HTML/CSS</span>
+        <div class="proj-card reveal">
+          <div class="proj-date">Mars 2026</div>
+          <div class="proj-title">Création de Dolistats</div>
+          <div class="proj-sub">Application Web pour l'ERP Dolibarr</div>
+          <div class="proj-desc">Création d'une application web pour consulter des données depuis l'ERP Dolibarr. Utilisation de PHP en architecture MVC pour interroger des données à la volée via une API REST. Intégration de graphiques dynamiques en HTML/CSS, mise en place sur un hébergeur web.</div>
+          <div class="proj-tags">
+            <span class="proj-tag">PHP</span><span class="proj-tag">MVC</span><span class="proj-tag">REST API</span><span class="proj-tag">HTML/CSS</span>
+          </div>
         </div>
-      </div>
 
-      <div class="proj-card reveal">
-        <div class="proj-date">Octobre 2025</div>
-        <div class="proj-title">Safora</div>
-        <div class="proj-sub">Application jeu de formation SST</div>
-        <div class="proj-desc">Application gamifiée pour renforcer la formation des Sauveteurs Secouristes du Travail. Analyse client, méthode agile, modélisation UML, maquettes Figma, développement Java et interface web PHP/HTML.</div>
-        <div class="proj-tags">
-          <span class="proj-tag">Java</span><span class="proj-tag">HTML/CSS/PHP</span><span class="proj-tag">UML</span><span class="proj-tag">Figma</span>
+        <div class="proj-card reveal">
+          <div class="proj-date">Octobre 2025</div>
+          <div class="proj-title">Création de Safora</div>
+          <div class="proj-sub">Application jeu de formation SST</div>
+          <div class="proj-desc">Application gamifiée pour renforcer la formation des Sauveteurs Secouristes du Travail. Analyse client, planification, modélisation UML, maquettes Figma, développement Java et conception d'une interface HTML, CSS et PHP via la méthode agile.</div>
+          <div class="proj-tags">
+            <span class="proj-tag">Java</span><span class="proj-tag">HTML/CSS/PHP</span><span class="proj-tag">UML</span><span class="proj-tag">Agile</span>
+          </div>
         </div>
+
+        <div class="proj-card reveal">
+          <div class="proj-date">Mai 2025</div>
+          <div class="proj-title">Ordonnancement de tâches</div>
+          <div class="proj-sub">Application Java avec Interface Graphique</div>
+          <div class="proj-desc">Création d'une interface graphique pour charger, afficher et modifier un fichier CSV d'événements. Implémentation d'algorithmes de filtrage, tri et sauvegarde. Gestion et configuration GitHub/Eclipse, coordination d'équipe.</div>
+          <div class="proj-tags">
+            <span class="proj-tag">Java</span><span class="proj-tag">JavaFX</span><span class="proj-tag">JUnit</span><span class="proj-tag">GitHub</span><span class="proj-tag">Eclipse</span>
+          </div>
+        </div>
+
       </div>
+      
+      <button class="slider-btn next-btn">❯</button>
     </div>
   </div>
 
@@ -517,6 +589,14 @@
     </div>
 
     <div class="comp-bars reveal">
+      <div>
+        <div class="comp-meta"><span>Réaliser</span><span class="comp-score">4 / 5</span></div>
+        <div class="comp-bar"><div class="comp-fill" data-pct="0.8"></div></div>
+      </div>
+      <div>
+        <div class="comp-meta"><span>Optimiser</span><span class="comp-score">3 / 5</span></div>
+        <div class="comp-bar"><div class="comp-fill" data-pct="0.6"></div></div>
+      </div>
       <div>
         <div class="comp-meta"><span>Administrer</span><span class="comp-score">3 / 5</span></div>
         <div class="comp-bar"><div class="comp-fill" data-pct="0.6"></div></div>
@@ -566,6 +646,7 @@
 </main>
 
 <script>
+  // Révélation des éléments au défilement
   const obs = new IntersectionObserver(entries => {
     entries.forEach((e, i) => {
       if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 60);
@@ -580,7 +661,6 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.tl-item').forEach(el => tlObs.observe(el));
   
-  // Animation pour les cartes projets
   const projObs = new IntersectionObserver(entries => {
     entries.forEach((e, i) => {
       if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 100);
@@ -595,6 +675,7 @@
   }, { threshold: 0.3 });
   document.querySelectorAll('.comp-fill').forEach(el => fillObs.observe(el));
 
+  // Gestion du menu actif
   const navLinks = document.querySelectorAll('.sidebar-nav a');
   const sectionObs = new IntersectionObserver(entries => {
     entries.forEach(e => {
@@ -606,6 +687,23 @@
     });
   }, { threshold: 0.4 });
   document.querySelectorAll('.section').forEach(s => sectionObs.observe(s));
+  
+  // Script pour le slider des projets
+  const carousel = document.querySelector('.projects-carousel');
+  const prevBtn = document.querySelector('.prev-btn');
+  const nextBtn = document.querySelector('.next-btn');
+
+  if (carousel && prevBtn && nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      // Défile vers la droite de la largeur d'une carte + l'écart (gap)
+      carousel.scrollBy({ left: 368, behavior: 'smooth' });
+    });
+    
+    prevBtn.addEventListener('click', () => {
+      // Défile vers la gauche
+      carousel.scrollBy({ left: -368, behavior: 'smooth' });
+    });
+  }
 </script>
 </body>
 </html>
