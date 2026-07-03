@@ -4,7 +4,6 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Enzo Dal Santo – Portfolio</title>
-  <!--[cite: 2] -->
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
     :root {
@@ -70,9 +69,7 @@
     }
     .avatar-wrap {
       position: relative;
-      width: 110px;
-      height: 110px;
-      overflow: hidden;
+      width: 110px; height: 110px;
     }
     .avatar-wrap svg {
       position: absolute; inset: 0;
@@ -81,18 +78,15 @@
     @keyframes spinRing { to { transform: rotate(360deg); } }
 
     .profile-img {
-      width: 90px;
-      height: 90px;
+      width: 90px; height: 90px;
       border-radius: 50%;
       object-fit: cover;
-
       position: absolute;
-      top: 50%;
-      left: 50%;
+      top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-
-      z-index: 2;
+      background: linear-gradient(135deg, var(--surface), #1a2a42);
     }
+
     .online-dot {
       position: absolute; bottom: 16px; right: 16px;
       width: 13px; height: 13px; border-radius: 50%;
@@ -312,7 +306,6 @@
 </head>
 <body>
 
-<!-- ══ SIDEBAR ══════════════════════════════════ -->
 <aside class="sidebar">
   <div class="profile">
     <div class="avatar-wrap">
@@ -326,10 +319,9 @@
           </linearGradient>
         </defs>
       </svg>
-      <img src="enzodalsanto.jfif" alt="Photo de profil" class="profile-img">
+      <img src="ta-photo.jpg" alt="Photo de profil" class="profile-img">
       <div class="online-dot"></div>
     </div>
-    <!--[cite: 1] -->
     <div class="profile-name">DAL SANTO<br/>Enzo</div>
     <span class="profile-role">Étudiant BUT Informatique</span>
   </div>
@@ -372,7 +364,6 @@
 
   <div class="sidebar-divider"></div>
 
-  <!--[cite: 1] -->
   <div class="contact-list">
     <a class="contact-item" href="mailto:enzo.dalsanto@iut-rodez.fr">
       <span class="ci-icon">✉</span> enzo.dalsanto@iut-rodez.fr
@@ -389,16 +380,13 @@
   </div>
 </aside>
 
-<!-- ══ MAIN ══════════════════════════════════════ -->
 <main class="main">
 
-  <!-- FORMATION -->
   <div class="section" id="formation">
     <div class="section-heading reveal">
       <span class="section-heading-icon">🎓</span>
       <h2>Formation</h2>
     </div>
-    <!--[cite: 1] -->
     <div class="timeline">
       <div class="tl-item">
         <div class="tl-dot-col"><div class="tl-dot"></div></div>
@@ -421,13 +409,11 @@
     </div>
   </div>
 
-  <!-- EXPÉRIENCE -->
   <div class="section" id="experience">
     <div class="section-heading reveal">
       <span class="section-heading-icon">💼</span>
       <h2>Expérience Professionnelle</h2>
     </div>
-    <!--[cite: 1] -->
     <div class="timeline">
       <div class="tl-item">
         <div class="tl-dot-col"><div class="tl-dot"></div></div>
@@ -453,13 +439,11 @@
     </div>
   </div>
 
-  <!-- PROJETS -->
   <div class="section" id="projets">
     <div class="section-heading reveal">
       <span class="section-heading-icon">🚀</span>
-      <h2>Projets Tutorés</h2>
+      <h2>Projets Académiques</h2>
     </div>
-    <!--[cite: 1] -->
     <div class="projects-grid">
       <div class="proj-card reveal">
         <div class="proj-date">Mai 2025</div>
@@ -493,13 +477,11 @@
     </div>
   </div>
 
-  <!-- COMPÉTENCES -->
   <div class="section" id="competences">
     <div class="section-heading reveal">
       <span class="section-heading-icon">⚙️</span>
       <h2>Compétences</h2>
     </div>
-    <!--[cite: 1] -->
     <div class="skills-section-grid reveal">
       <div class="skill-block">
         <div class="skill-block-title">Langages</div>
@@ -534,7 +516,6 @@
       </div>
     </div>
 
-    <!--[cite: 1] -->
     <div class="comp-bars reveal">
       <div>
         <div class="comp-meta"><span>Administrer</span><span class="comp-score">3 / 5</span></div>
@@ -554,7 +535,6 @@
       </div>
     </div>
 
-    <!--[cite: 1] -->
     <div style="margin-top:2rem" class="reveal">
       <p style="font-size:0.62rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:0.9rem">Langues</p>
       <div class="lang-row">
@@ -565,17 +545,14 @@
     </div>
   </div>
 
-  <!-- À PROPOS -->
   <div class="section" id="about">
     <div class="section-heading reveal">
       <span class="section-heading-icon">✦</span>
       <h2>À propos</h2>
     </div>
-    <!--[cite: 1] -->
     <p class="reveal" style="font-size:0.8rem;color:var(--muted);line-height:1.85;max-width:800px;margin-bottom:1.8rem">
       Étudiant de 20 ans en deuxième année de BUT Informatique à Rodez, je suis en transition vers un cycle d'ingénieur à 3iL Ingénieurs. Je recherche une <strong style="color:var(--text)">alternance en management du système d'information</strong> pour la rentrée 2026–2027. Curieux et rigoureux, j'aime les projets concrets qui mêlent développement, architecture logicielle et administration système.
     </p>
-    <!--[cite: 1] -->
     <div class="interests-wrap reveal">
       <span class="interest-chip">🧱 Création de Lego</span>
       <span class="interest-chip">🚴 Cyclisme</span>
